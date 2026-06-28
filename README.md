@@ -24,20 +24,6 @@ This Power BI dashboard analyzes hospital data for 500 patients (2023–2024). I
 - dashboard4.png
 - DAX_Measures.txt
 
-## 📸 Dashboard Preview
-
-### 🔹 Overview Dashboard
-![Dashboard](dashboard1.png)
-
-### 🔹 Revenue Analysis
-![Dashboard](dashboard2.png)
-
-### 🔹 Patient Insights
-![Dashboard](dashboard3.png)
-
-### 🔹 Department Performance
-![Dashboard](dashboard4.png)
-
 ## 👨‍💻 Author
 **Shivraj Sagane**
 
