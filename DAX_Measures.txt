@@ -1,0 +1,63 @@
+-- ① Total Patients
+Total Patients = COUNTROWS(Patient_Data)
+
+-- ② Total Revenue
+Total Revenue = SUM(Patient_Data[Bill_Amount])
+
+-- ③ Average Bill Amount
+Avg Bill Amount = AVERAGE(Patient_Data[Bill_Amount])
+
+-- ④ Average Length of Stay
+Avg Length of Stay = AVERAGE(Patient_Data[Length_of_Stay])
+
+-- ⑤ Average Satisfaction Score
+Avg Satisfaction = AVERAGE(Patient_Data[Satisfaction_Score])
+
+-- ⑥ Readmission Rate %
+Readmission Rate % = 
+DIVIDE(
+    COUNTROWS(FILTER(Patient_Data, Patient_Data[Readmission] = "Yes")),
+    COUNTROWS(Patient_Data)
+) * 100
+
+-- ⑦ Critical Patients Count
+Critical Patients = 
+COUNTROWS(FILTER(Patient_Data, Patient_Data[Status] = "Critical"))
+
+-- ⑧ Discharged Patients
+Discharged Patients = 
+COUNTROWS(FILTER(Patient_Data, Patient_Data[Status] = "Discharged"))
+
+-- ⑨ Revenue This Year (2024)
+Revenue 2024 = 
+CALCULATE(SUM(Patient_Data[Bill_Amount]), Patient_Data[Year] = 2024)
+
+-- ⑩ Revenue Last Year (2023)
+Revenue 2023 = 
+CALCULATE(SUM(Patient_Data[Bill_Amount]), Patient_Data[Year] = 2023)
+
+-- ⑪ YoY Revenue Growth %
+YoY Revenue Growth % = 
+DIVIDE([Revenue 2024] - [Revenue 2023], [Revenue 2023]) * 100
+
+-- ⑫ Insurance Patients %
+Insurance Rate % = 
+DIVIDE(
+    COUNTROWS(FILTER(Patient_Data, Patient_Data[Payment_Mode] = "Insurance")),
+    COUNTROWS(Patient_Data)
+) * 100
+
+-- ⑬ Top Department by Revenue (Fixed Version)
+Top Dept Revenue =
+MAXX(
+    TOPN(
+        1,
+        ADDCOLUMNS(
+            VALUES(Patient_Data[Department]),
+            "Rev", CALCULATE(SUM(Patient_Data[Bill_Amount]))
+        ),
+        [Rev],
+        DESC
+    ),
+    [Rev]
+)
